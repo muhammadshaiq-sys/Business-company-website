@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Triveni AI | AI Agents - Custom Intelligence for Your Business</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050b14;
+      color: #eef2ff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    .cinematic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, #0a1220, #02060c);
+    }
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes gridMove { 0% { transform: translate(0,0); } 100% { transform: translate(50px,50px); } }
+    .digital-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, rgba(0,255,255,0.2), transparent);
+      border-radius: 50%;
+      filter: blur(4px);
+      animation: floatGlow 18s infinite alternate;
+    }
+    @keyframes floatGlow { 0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.2; } 100% { transform: translateY(-60px) translateX(40px) scale(1.4); opacity: 0.5; } }
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; width: 100%; position: relative; z-index: 2; }
+    
+    /* Navbar */
+    .navbar {
+      background: rgba(5,15,25,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,255,255,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .logo-area { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .logo-placeholder {
+      width: 75px;
+      height: 75px;
+      background: transparent;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1.5px solid rgba(0,255,255,0.5);
+      box-shadow: 0 0 15px rgba(0,255,255,0.3);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .logo-placeholder:hover {
+      transform: scale(1.05);
+      border-color: #0ff;
+      box-shadow: 0 0 20px rgba(0,255,255,0.5);
+    }
+    .logo-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+    .logo span { 
+      font-size: 0.65rem; 
+      color: #7dd3fc; 
+      display: block; 
+    }
+    
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      padding: 8px;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background: #0ff;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #cbd5e6;
+      transition: 0.25s;
+      font-size: 0.9rem;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .nav-links li a:hover, 
+    .nav-links li a.active { 
+      color: #0ff; 
+      border-bottom-color: #0ff; 
+      text-shadow: 0 0 5px rgba(0,255,255,0.5); 
+    }
+    
+    .btn-primary {
+      background: linear-gradient(105deg, #0ff0c0, #0aa);
+      color: #010b14;
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-weight: 700;
+      display: inline-block;
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(0,255,255,0.3);
+      transition: 0.25s;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 24px rgba(0,255,255,0.6); }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff, #6ee7e7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .section-sub {
+      color: #8ba0c0;
+      max-width: 700px;
+      margin-bottom: 40px;
+      font-size: 1rem;
+    }
+    .page-hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    .page-hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(145deg, #fff, #0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 16px;
+    }
+    .page-hero p {
+      font-size: 1.1rem;
+      color: #a0b3d9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .agent-category {
+      margin: 50px 0 30px;
+    }
+    .agent-category h2 {
+      font-size: 1.6rem;
+      color: #0ff;
+      margin-bottom: 24px;
+      border-left: 3px solid #0ff;
+      padding-left: 20px;
+    }
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+    .agent-card {
+      background: rgba(8,18,28,0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 28px;
+      transition: all 0.3s;
+      border: 1px solid rgba(0,255,255,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .agent-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #0ff, transparent);
+    }
+    .agent-card:hover {
+      transform: translateY(-6px);
+      border-color: #0ff;
+      box-shadow: 0 20px 35px -8px rgba(0,255,255,0.2);
+    }
+    .agent-icon {
+      font-size: 2.2rem;
+      color: #0ff;
+      margin-bottom: 18px;
+    }
+    .agent-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .agent-features {
+      margin-top: 14px;
+      list-style: none;
+    }
+    .agent-features li {
+      margin: 6px 0;
+      font-size: 0.8rem;
+      color: #a0b3d9;
+    }
+    .agent-features li i {
+      color: #0ff;
+      margin-right: 8px;
+      font-size: 0.7rem;
+    }
+    .agent-price {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,255,255,0.1);
+      font-weight: 700;
+      color: #0ff;
+    }
+    footer {
+      background: #02080f;
+      border-top: 1px solid rgba(0,255,255,0.2);
+      padding: 50px 0 25px;
+      margin-top: 60px;
+    }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+    .footer-col h4 { color: #0ff; font-size: 1rem; margin-bottom: 18px; }
+    .footer-col p, .footer-col a { color: #8ba0c0; text-decoration: none; line-height: 1.8; font-size: 0.85rem; display: block; margin-bottom: 8px; }
+    .footer-col a:hover { color: #0ff; transform: translateX(4px); display: inline-block; }
+    .social-icons { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+    .social-icons a { font-size: 1.3rem; color: #8ba0c0; transition: 0.2s; }
+    .social-icons a:hover { color: #0ff; transform: translateY(-3px); }
+    .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(0,255,255,0.1); font-size: 0.7rem; color: #5a6e8a; }
+    
+    /* Responsive Styles */
+    @media (max-width: 900px) {
+      .container { padding: 0 20px; }
+      .page-hero h1 { font-size: 2.5rem; }
+      .section-title { font-size: 1.8rem; }
+      .nav-links { gap: 20px; }
+      .nav-links li a { font-size: 0.8rem; white-space: normal; }
+    }
+    
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 16px;
+        background: rgba(5,15,25,0.98);
+        border-top: 1px solid rgba(0,255,255,0.2);
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .nav-container {
+        position: relative;
+        flex-wrap: wrap;
+      }
+      .logo-area { flex: 1; }
+      .hero-grid { flex-direction: column; text-align: center; }
+      .agents-grid { grid-template-columns: 1fr; }
+      .agent-category h2 { font-size: 1.4rem; }
+    }
+    
+    @media (max-width: 480px) {
+      .page-hero h1 { font-size: 1.8rem; }
+      .section-title { font-size: 1.5rem; }
+      .btn-primary { padding: 10px 20px; font-size: 0.85rem; }
+      .logo h1 { font-size: 1.3rem; }
+      .logo span { font-size: 0.55rem; }
+      .logo-placeholder { width: 40px; height: 40px; }
+    }
+  </style>
+</head>
+<body>
+<div class="cinematic-bg"></div>
+<div class="grid-overlay"></div>
+<div class="digital-particles" id="particles"></div>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo-area">
+      <div class="logo-placeholder">
+        <img src="Untitled design (3).jpg" alt="Triveni AI Logo">
+      </div>
+      <div class="logo">
+        <h1>TRIVENI AI</h1>
+        <span>⚡ INTELLIGENCE · DATA · AUTOMATION</span>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="ai-agents.html" class="active">AI AGENTS</a></li>
+      <li><a href="solutions.html">SOLUTIONS</a></li>
+      <li><a href="pricing.html">PRICING</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="page-hero">
+      <h1>Our AI Agents</h1>
+      <p>Custom-built intelligence that connects to your data and gets work done.</p>
+    </div>
+
+    <!-- Conversational Intelligence Agents -->
+    <div class="agent-category">
+      <h2><i class="fas fa-comments"></i> Conversational Intelligence</h2>
+      <div class="agents-grid">
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fas fa-database"></i></div>
+          <h3>RAG Agent</h3>
+          <p>Retrieval-Augmented Generation that answers from your documents, databases, and knowledge base.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> PDF, Word, Excel, SQL support</li>
+            <li><i class="fas fa-check-circle"></i> Citation-backed answers</li>
+            <li><i class="fas fa-check-circle"></i> Real-time data sync</li>
+          </ul>
+          <div class="agent-price">From PKR 150,000/month</div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fab fa-whatsapp"></i></div>
+          <h3>WhatsApp Agent</h3>
+          <p>Urdu/English bilingual agent accessible via WhatsApp — no app needed.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> 50M+ Pakistan users</li>
+            <li><i class="fas fa-check-circle"></i> Urdu + English (Urduish)</li>
+            <li><i class="fas fa-check-circle"></i> 24/7 availability</li>
+          </ul>
+          <div class="agent-price">From PKR 100,000/month</div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fas fa-search"></i></div>
+          <h3>Search & Summarization Agent</h3>
+          <p>Find and summarize information across thousands of documents in seconds.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> Multi-document search</li>
+            <li><i class="fas fa-check-circle"></i> Automatic summarization</li>
+            <li><i class="fas fa-check-circle"></i> Key insight extraction</li>
+          </ul>
+          <div class="agent-price">From PKR 120,000/month</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workflow Automation Agents -->
+    <div class="agent-category">
+      <h2><i class="fas fa-robot"></i> Workflow Automation</h2>
+      <div class="agents-grid">
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fas fa-file-alt"></i></div>
+          <h3>Report Generator Agent</h3>
+          <p>Automatically generate reports from your data — daily, weekly, or on-demand.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> Custom templates</li>
+            <li><i class="fas fa-check-circle"></i> Scheduled delivery</li>
+            <li><i class="fas fa-check-circle"></i> Multiple formats (PDF, Excel, PPT)</li>
+          </ul>
+          <div class="agent-price">From PKR 200,000/month</div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fas fa-envelope"></i></div>
+          <h3>Email Automation Agent</h3>
+          <p>Draft, send, and manage email communications based on triggers and templates.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> Smart drafting</li>
+            <li><i class="fas fa-check-circle"></i> Follow-up automation</li>
+            <li><i class="fas fa-check-circle"></i> CRM integration</li>
+          </ul>
+          <div class="agent-price">From PKR 180,000/month</div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fas fa-calendar-alt"></i></div>
+          <h3>Scheduling Agent</h3>
+          <p>Automated meeting scheduling, resource allocation, and calendar management.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> Calendar sync</li>
+            <li><i class="fas fa-check-circle"></i> Conflict resolution</li>
+            <li><i class="fas fa-check-circle"></i> Reminder system</li>
+          </ul>
+          <div class="agent-price">From PKR 150,000/month</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Autonomous Agents -->
+    <div class="agent-category">
+      <h2><i class="fas fa-microchip"></i> Autonomous Operations</h2>
+      <div class="agents-grid">
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Monitoring & Alert Agent</h3>
+          <p>Monitor systems, detect anomalies, and send alerts before problems escalate.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> Real-time monitoring</li>
+            <li><i class="fas fa-check-circle"></i> Predictive alerts</li>
+            <li><i class="fas fa-check-circle"></i> Custom thresholds</li>
+          </ul>
+          <div class="agent-price">From PKR 350,000/month</div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Compliance Agent</h3>
+          <p>Automated compliance checking, fraud detection, and regulatory reporting.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> Real-time transaction monitoring</li>
+            <li><i class="fas fa-check-circle"></i> Suspicious activity flagging</li>
+            <li><i class="fas fa-check-circle"></i> Audit trail generation</li>
+          </ul>
+          <div class="agent-price">From PKR 500,000/month</div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fas fa-brain"></i></div>
+          <h3>Decision Support Agent</h3>
+          <p>Advanced analytics and recommendations to support strategic decisions.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> Predictive analytics</li>
+            <li><i class="fas fa-check-circle"></i> What-if scenarios</li>
+            <li><i class="fas fa-check-circle"></i> ROI optimization</li>
+          </ul>
+          <div class="agent-price">From PKR 600,000/month</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edge AI Agents -->
+    <div class="agent-category">
+      <h2><i class="fas fa-server"></i> Edge AI (No Internet Required)</h2>
+      <div class="agents-grid">
+        <div class="agent-card">
+          <div class="agent-icon"><i class="fas fa-microchip"></i></div>
+          <h3>On-Premise Agent</h3>
+          <p>Full AI capabilities running locally on your servers — data never leaves your infrastructure.</p>
+          <ul class="agent-features">
+            <li><i class="fas fa-check-circle"></i> 100% data privacy</li>
+            <li><i class="fas fa-check-circle"></i> Works during outages</li>
+            <li><i class="fas fa-check-circle"></i> No cloud dependency</li>
+          </ul>
+          <div class="agent-price">Custom pricing</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 50px 0;">
+      <a href="contact.html" class="btn-primary"><i class="fas fa-comment"></i> Let's Build Your Agent</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h4>TRIVENI AI</h4><p>Intelligence That Works Where Your Data Lives</p></div>
+      <div class="footer-col"><h4>Quick Links</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="ai-agents.html">AI Agents</a><a href="solutions.html">Solutions</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-envelope"></i> Muhammadshaiq68@gmail.com</p><p><i class="fas fa-phone-alt"></i> (+92) 319 8501420</p><p><i class="fas fa-map-marker-alt"></i> Multan, Pakistan</p></div>
+      <div class="footer-col"><h4>Follow Us</h4><div class="social-icons">
+        <a href="https://www.linkedin.com/in/muhammad-shaiq-b32873383" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/muhammadshaiq-sys" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://wa.me/message/IWGFCAZ7BYH5G1" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/shaiq_30?utm_source=qr&igsh=emFzb3Y0N3d4ZDZt" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div><p style="margin-top:14px;">triveni.ai</p></div>
+    </div>
+    <div class="footer-bottom">© 2026 Triveni AI — Built with mathematical honesty & Pakistan's export vision.</div>
+  </div>
+</footer>
+
+<script>
+  // Create particles
+  for(let i=0;i<80;i++){
+    let p=document.createElement('div');
+    p.classList.add('particle');
+    let s=Math.random()*80+20;
+    p.style.width=s+'px';
+    p.style.height=s+'px';
+    p.style.left=Math.random()*100+'%';
+    p.style.top=Math.random()*100+'%';
+    p.style.animationDelay=Math.random()*20+'s';
+    p.style.animationDuration=12+Math.random()*20+'s';
+    document.getElementById('particles').appendChild(p);
+  }
+  
+  // Hamburger Menu Toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  
+  if(hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  }
+</script>
+</body>
+</html>

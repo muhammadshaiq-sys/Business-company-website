@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Triveni AI | About - The Mathematician Behind the Code</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050b14;
+      color: #eef2ff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Unique Animation for About - Orbiting Particles */
+    .cinematic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 70% 20%, #0a1220, #02060c);
+    }
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .orbit {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(0,255,255,0.15);
+      animation: rotate 30s linear infinite;
+    }
+    .orbit-1 {
+      width: 400px;
+      height: 400px;
+      top: 20%;
+      left: -10%;
+      border: 1px solid rgba(0,255,255,0.2);
+    }
+    .orbit-2 {
+      width: 600px;
+      height: 600px;
+      bottom: -20%;
+      right: -15%;
+      border: 1px solid rgba(0,200,255,0.15);
+      animation-direction: reverse;
+      animation-duration: 45s;
+    }
+    .orbit-3 {
+      width: 250px;
+      height: 250px;
+      top: 60%;
+      left: 70%;
+      border: 1px solid rgba(0,255,200,0.25);
+      animation-duration: 20s;
+    }
+    .orbiting-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #0ff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #0ff;
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+    
+    .digital-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .digital-particle {
+      position: absolute;
+      background: radial-gradient(circle, rgba(0,255,255,0.4), transparent);
+      border-radius: 50%;
+      animation: floatAbout 20s linear infinite;
+    }
+    @keyframes floatAbout {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) translateX(30px) rotate(360deg); opacity: 0; }
+    }
+    
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; width: 100%; position: relative; z-index: 2; }
+    
+    /* Navbar with Hamburger */
+    .navbar {
+      background: rgba(5,15,25,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,255,255,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .logo-area { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+      cursor: pointer;
+    }
+     .logo-placeholder {
+  width: 75px;
+  height: 75px;
+  background: linear-gradient(135deg, rgba(0,255,255,0.2), rgba(0,170,170,0.1));
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1.5px solid rgba(0,255,255,0.4);
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.logo-placeholder:hover {
+  transform: scale(1.05);
+  border-color: #0ff;
+  box-shadow: 0 0 20px rgba(0,255,255,0.4);
+}
+.logo-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      padding: 8px;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background: #0ff;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      transition: all 0.3s ease;
+    }
+    .nav-links li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #cbd5e6;
+      transition: 0.25s;
+      font-size: 0.9rem;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .nav-links li a:hover, .nav-links li a.active { color: #0ff; border-bottom-color: #0ff; text-shadow: 0 0 5px rgba(0,255,255,0.5); }
+    
+    .btn-primary {
+      background: linear-gradient(105deg, #0ff0c0, #0aa);
+      color: #010b14;
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-weight: 700;
+      display: inline-block;
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(0,255,255,0.3);
+      transition: 0.25s;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 24px rgba(0,255,255,0.6); }
+    
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff, #6ee7e7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .section-subtitle {
+      font-size: 1rem;
+      color: #8ba0c0;
+      max-width: 700px;
+      margin-bottom: 40px;
+    }
+    
+    .about-hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    .about-hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(145deg, #fff, #0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 16px;
+    }
+    .about-hero p {
+      font-size: 1.1rem;
+      color: #a0b3d9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .hero-accent {
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, #0ff, transparent);
+      margin: 24px auto 0;
+    }
+    
+    .founder-spotlight {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+      background: linear-gradient(135deg, rgba(0,20,40,0.6), rgba(0,10,25,0.8));
+      backdrop-filter: blur(12px);
+      border-radius: 40px;
+      padding: 48px;
+      margin: 50px 0;
+      border: 1px solid rgba(0,255,255,0.2);
+      transition: all 0.4s ease;
+    }
+    .founder-spotlight:hover {
+      border-color: rgba(0,255,255,0.5);
+      box-shadow: 0 30px 50px rgba(0,0,0,0.4);
+    }
+    .founder-image {
+      flex: 0.6;
+      text-align: center;
+    }
+    .founder-image img {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0ff;
+      box-shadow: 0 0 40px rgba(0,255,255,0.4);
+      transition: 0.3s;
+    }
+    .founder-image img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 60px rgba(0,255,255,0.6);
+    }
+    .founder-info {
+      flex: 2;
+    }
+    .founder-name {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #0ff;
+      margin-bottom: 8px;
+    }
+    .founder-title {
+      color: #7dd3fc;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      display: inline-block;
+      background: rgba(0,255,255,0.1);
+      padding: 5px 14px;
+      border-radius: 40px;
+    }
+    .founder-bio {
+      font-size: 1rem;
+      color: #cbd5e6;
+      line-height: 1.7;
+      margin: 20px 0;
+    }
+    .founder-quote {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #eef2ff;
+      border-left: 3px solid #0ff;
+      padding-left: 24px;
+      margin: 24px 0;
+      background: rgba(0,255,255,0.03);
+      padding: 18px 24px;
+      border-radius: 20px;
+    }
+    .founder-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .stat-chip {
+      background: rgba(0,255,255,0.1);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(0,255,255,0.2);
+    }
+    .stat-chip i { margin-right: 6px; color: #0ff; }
+    
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin: 40px 0;
+    }
+    .value-card {
+      background: rgba(8,18,28,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 32px 24px;
+      text-align: center;
+      border: 1px solid rgba(0,255,255,0.15);
+      transition: all 0.3s;
+    }
+    .value-card:hover {
+      transform: translateY(-6px);
+      border-color: #0ff;
+      box-shadow: 0 20px 35px -8px rgba(0,255,255,0.2);
+    }
+    .value-icon {
+      font-size: 2.5rem;
+      color: #0ff;
+      margin-bottom: 20px;
+    }
+    .value-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+    
+    .track-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin: 40px 0;
+    }
+    .track-card {
+      background: linear-gradient(145deg, rgba(0,25,35,0.7), rgba(0,15,25,0.8));
+      border-radius: 28px;
+      padding: 28px;
+      border: 1px solid rgba(0,255,255,0.2);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .track-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #0ff, transparent);
+    }
+    .track-card:hover {
+      transform: translateY(-5px);
+      border-color: #0ff;
+    }
+    .track-icon {
+      font-size: 2.2rem;
+      color: #0ff;
+      margin-bottom: 16px;
+    }
+    .track-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .track-badge {
+      display: inline-block;
+      background: rgba(0,255,255,0.15);
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      margin-top: 14px;
+    }
+    
+    .math-advantage {
+      background: linear-gradient(135deg, rgba(0,255,255,0.08), rgba(0,100,100,0.03));
+      border-radius: 40px;
+      padding: 48px;
+      margin: 48px 0;
+      border: 1px solid rgba(0,255,255,0.2);
+    }
+    .math-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .math-item {
+      text-align: center;
+      padding: 20px;
+    }
+    .math-item i {
+      font-size: 2.2rem;
+      color: #0ff;
+      margin-bottom: 14px;
+    }
+    
+    .vm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin: 48px 0;
+    }
+    .vm-card {
+      background: rgba(8,18,28,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 32px;
+      border: 1px solid rgba(0,255,255,0.2);
+      transition: 0.3s;
+    }
+    .vm-card:hover {
+      border-color: #0ff;
+    }
+    .vm-card h3 {
+      font-size: 1.4rem;
+      color: #0ff;
+      margin-bottom: 16px;
+    }
+    .vm-card i { margin-right: 10px; }
+    
+    .trust-section {
+      background: rgba(0,20,30,0.4);
+      border-radius: 40px;
+      padding: 40px;
+      margin: 48px 0;
+      text-align: center;
+    }
+    .trust-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 28px;
+    }
+    .trust-badge {
+      background: rgba(0,255,255,0.08);
+      padding: 10px 24px;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(0,255,255,0.2);
+      transition: 0.2s;
+    }
+    .trust-badge:hover {
+      background: rgba(0,255,255,0.15);
+      transform: translateY(-2px);
+    }
+    .trust-badge i { margin-right: 6px; color: #0ff; }
+    
+    .about-cta {
+      text-align: center;
+      padding: 50px 32px;
+      margin: 50px 0 40px;
+      background: linear-gradient(135deg, rgba(0,255,255,0.05), rgba(0,100,100,0.02));
+      border-radius: 50px;
+    }
+    
+    footer {
+      background: #02080f;
+      border-top: 1px solid rgba(0,255,255,0.2);
+      padding: 50px 0 25px;
+      margin-top: 60px;
+    }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+    .footer-col h4 { color: #0ff; font-size: 1rem; margin-bottom: 18px; }
+    .footer-col p, .footer-col a { color: #8ba0c0; text-decoration: none; line-height: 1.8; font-size: 0.85rem; display: block; margin-bottom: 8px; }
+    .footer-col a:hover { color: #0ff; transform: translateX(4px); display: inline-block; }
+    .social-icons { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+    .social-icons a { font-size: 1.3rem; color: #8ba0c0; transition: 0.2s; }
+    .social-icons a:hover { color: #0ff; transform: translateY(-3px); }
+    .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(0,255,255,0.1); font-size: 0.7rem; color: #5a6e8a; }
+    
+    @media (max-width: 900px) {
+      .container { padding: 0 20px; }
+      .about-hero h1 { font-size: 2.5rem; }
+      .section-title { font-size: 1.8rem; }
+      .nav-links { gap: 20px; }
+      .nav-links li a { font-size: 0.8rem; white-space: normal; }
+    }
+    
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 16px;
+        background: rgba(5,15,25,0.98);
+        border-top: 1px solid rgba(0,255,255,0.2);
+      }
+      .nav-links.active { display: flex; }
+      .nav-container { flex-direction: row; flex-wrap: wrap; }
+      .logo-area { flex: 1; }
+      .founder-spotlight { flex-direction: column; text-align: center; padding: 32px; }
+      .founder-quote { text-align: left; }
+      .values-grid { grid-template-columns: 1fr; }
+      .track-grid { grid-template-columns: 1fr; }
+      .math-advantage { padding: 28px; }
+      .trust-badges { gap: 12px; }
+      .trust-badge { padding: 6px 16px; font-size: 0.75rem; }
+    }
+    
+    @media (max-width: 480px) {
+      .about-hero h1 { font-size: 1.8rem; }
+      .section-title { font-size: 1.5rem; }
+      .founder-name { font-size: 1.6rem; }
+      .logo h1 { font-size: 1.3rem; }
+      .logo span { font-size: 0.55rem; }
+      .logo-placeholder { width: 35px; height: 35px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="cinematic-bg"></div>
+<div class="bg-animation">
+  <div class="orbit orbit-1"></div>
+  <div class="orbit orbit-2"></div>
+  <div class="orbit orbit-3"></div>
+</div>
+<div class="digital-particles" id="digitalParticles"></div>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo-area">
+      <div class="logo-placeholder">
+        <img src="Untitled design (3).jpg">
+      </div>
+      <div class="logo">
+        <h1>TRIVENI AI</h1>
+        <span>⚡ INTELLIGENCE · DATA · AUTOMATION</span>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="about.html" class="active">ABOUT</a></li>
+      <li><a href="ai-agents.html">AI AGENTS</a></li>
+      <li><a href="solutions.html">SOLUTIONS</a></li>
+      <li><a href="pricing.html">PRICING</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="about-hero">
+      <h1>Mathematicians Who Ship Code</h1>
+      <p>We don't just talk about AI — we build mathematically optimized agents that work where your data lives.</p>
+      <div class="hero-accent"></div>
+    </div>
+
+    <div class="founder-spotlight">
+      <div class="founder-image">
+        <img src="Gemini_Generated_Image_h53ee3h53ee3h53e - Edited.png" alt="Muhammad Shaiq">
+        <p style="margin-top: 10px; font-size: 0.7rem; color: #5a7a9a;">Muhammad Shaiq — Founder</p>
+      </div>
+      <div class="founder-info">
+        <div class="founder-name">Muhammad Shaiq</div>
+        <div class="founder-title"><i class="fas fa-square-root-alt"></i> Mathematician & AI Developer</div>
+        <div class="founder-bio">
+          Shaiq is a mathematician turned AI developer who believes that true intelligence comes from mathematical rigor, not just prompt engineering. With a foundation in optimization theory and a passion for building, he has already deployed <strong>three working intelligence agents</strong> across education, enterprise operations, and medical diagnostics.
+        </div>
+        <div class="founder-quote">
+          <i class="fas fa-quote-left" style="color:#0ff; margin-right: 8px;"></i> 
+          For organizations drowning in repetitive data work, Triveni AI provides custom agents that actually integrate with your existing systems — because we're mathematicians who build, not marketers who pitch.
+        </div>
+        <div class="founder-stats">
+          <span class="stat-chip"><i class="fas fa-microchip"></i> 3 Deployed Agents</span>
+          <span class="stat-chip"><i class="fas fa-chart-line"></i> Mathematical Optimization</span>
+          <span class="stat-chip"><i class="fas fa-globe"></i> Pakistan · Export Ready</span>
+          <span class="stat-chip"><i class="fas fa-code"></i> Ships Code, Not Slides</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Our Core Values</h2>
+    <div class="section-subtitle">The principles that guide everything we build.</div>
+    <div class="values-grid">
+      <div class="value-card"><div class="value-icon"><i class="fas fa-square-root-alt"></i></div><h3>Mathematical Honesty</h3><p>Solutions grounded in logic and data, not hype. Smaller, faster, optimized models that deliver real results.</p></div>
+      <div class="value-card"><div class="value-icon"><i class="fas fa-code-branch"></i></div><h3>Build First, Talk Second</h3><p>Functional prototypes over theoretical pitches. Three agents already deployed and working in production.</p></div>
+      <div class="value-card"><div class="value-icon"><i class="fas fa-handshake"></i></div><h3>Customer Partnership</h3><p>We grow by making our clients more efficient. Direct founder access, no middlemen, no bureaucracy.</p></div>
+    </div>
+
+    <h2 class="section-title">Proven Track Record</h2>
+    <div class="section-subtitle">Already deployed and delivering value across industries.</div>
+    <div class="track-grid">
+      <div class="track-card"><div class="track-icon"><i class="fas fa-graduation-cap"></i></div><h3>Student Guidance Agent</h3><p>Automated department promotion queries, student guidance, and administrative workflows. Reduced response time by 85%.</p><span class="track-badge">🎓 Education Sector</span></div>
+      <div class="track-card"><div class="track-icon"><i class="fas fa-building"></i></div><h3>Enterprise Ops Agent</h3><p>Scheduling automation, document retrieval, and internal workflow optimization. Saved 20+ hours weekly for operations teams.</p><span class="track-badge">🏢 Enterprise Operations</span></div>
+      <div class="track-card"><div class="track-icon"><i class="fas fa-stethoscope"></i></div><h3>Skin Cancer Predictor</h3><p>Medical diagnostic agent for Melanoma, BCC, and AKIEC detection with high accuracy. Deployed in clinical trials.</p><span class="track-badge">🏥 Medical Diagnostics</span></div>
+    </div>
+
+    <div class="math-advantage">
+      <h2 class="section-title" style="margin-bottom: 8px;">🧮 The Mathematical Advantage</h2>
+      <p style="color: #8ba0c0;">While others focus on "prompt engineering," Triveni AI is built on mathematical optimization.</p>
+      <div class="math-grid">
+        <div class="math-item"><i class="fas fa-tachometer-alt"></i><h3>Efficiency</h3><p>Smaller, faster models that reduce latency and operational cost by up to 40%.</p></div>
+        <div class="math-item"><i class="fas fa-bullseye"></i><h3>Accuracy</h3><p>Domain-specific fine-tuning that eliminates generic errors and hallucinations.</p></div>
+        <div class="math-item"><i class="fas fa-puzzle-piece"></i><h3>Adaptability</h3><p>Core architecture designed to handle any data structure — SQL, NoSQL, PDFs, spreadsheets.</p></div>
+      </div>
+    </div>
+
+    <div class="vm-grid">
+      <div class="vm-card"><h3><i class="fas fa-eye"></i> Vision</h3><p>To eliminate "dead capital" through seamless AI integration into every organizational workflow — making data work for people, not against them.</p></div>
+      <div class="vm-card"><h3><i class="fas fa-rocket"></i> Mission</h3><p>Make custom AI agents accessible, secure, and ROI-driven for Pakistani and global businesses of all sizes.</p></div>
+    </div>
+
+    <div class="trust-section">
+      <h3 style="font-size: 1.6rem; margin-bottom: 14px;">Trusted by Organizations That Value Results</h3>
+      <div class="trust-badges">
+        <span class="trust-badge"><i class="fas fa-shield-alt"></i> 14-Day Free Pilot</span>
+        <span class="trust-badge"><i class="fas fa-hand-holding-usd"></i> Money-Back Guarantee</span>
+        <span class="trust-badge"><i class="fas fa-user-tie"></i> Direct Founder Access</span>
+        <span class="trust-badge"><i class="fas fa-microchip"></i> On-Premise / Edge AI</span>
+        <span class="trust-badge"><i class="fab fa-whatsapp"></i> WhatsApp-First Deployment</span>
+      </div>
+    </div>
+
+    <div class="about-cta">
+      <h3 style="font-size: 1.6rem; margin-bottom: 14px;">Ready to unlock your organization's dead capital?</h3>
+      <p style="margin-bottom: 24px; color: #8ba0c0;">Let's talk about how a custom AI agent can transform your operations.</p>
+      <a href="contact.html" class="btn-primary"><i class="fas fa-calendar-check"></i> Schedule a Free Consultation</a>
+      <p style="margin-top: 18px; font-size: 0.75rem; color: #5a7a9a;">No pitch decks. Just real code and real results.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h4>TRIVENI AI</h4><p>Intelligence That Works Where Your Data Lives</p></div>
+      <div class="footer-col"><h4>Quick Links</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="ai-agents.html">AI Agents</a><a href="solutions.html">Solutions</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-envelope"></i> Muhammadshaiq68@gmail.com</p><p><i class="fas fa-phone-alt"></i> (+92) 319 8501420</p><p><i class="fas fa-map-marker-alt"></i> Multan, Pakistan</p></div>
+      <div class="footer-col"><h4>Follow Us</h4><div class="social-icons">
+        <a href="https://www.linkedin.com/in/muhammad-shaiq-b32873383" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/muhammadshaiq-sys" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://wa.me/message/IWGFCAZ7BYH5G1" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/shaiq_30?utm_source=qr&igsh=emFzb3Y0N3d4ZDZt" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div><p style="margin-top:14px;">triveni.ai</p></div>
+    </div>
+    <div class="footer-bottom">© 2026 Triveni AI — Built with mathematical honesty & Pakistan's export vision.</div>
+  </div>
+</footer>
+
+<script>
+  // Floating particles
+  const particlesContainer = document.getElementById('digitalParticles');
+  for(let i = 0; i < 60; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('digital-particle');
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = 12 + Math.random() * 15 + 's';
+    particle.style.width = 1 + Math.random() * 4 + 'px';
+    particle.style.height = particle.style.width;
+    particlesContainer.appendChild(particle);
+  }
+  
+  // Hamburger Menu Toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+  
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+    });
+  });
+</script>
+</body>
+</html>

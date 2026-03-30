@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Triveni AI | Solutions - Industry-Specific AI Agents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050b14;
+      color: #eef2ff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Unique Animation for Solutions - Geometric Hexagon Grid */
+    .cinematic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 60% 40%, #0a1220, #02060c);
+    }
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .hexagon-grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50,5 L85,20 L85,50 L50,65 L15,50 L15,20 Z' fill='none' stroke='rgba(0,255,255,0.08)' stroke-width='1'/%3E%3C/svg%3E");
+      background-size: 80px 70px;
+      background-repeat: repeat;
+      animation: hexMove 30s linear infinite;
+    }
+    .hexagon-grid::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, transparent 0%, #050b14 80%);
+    }
+    @keyframes hexMove {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(40px, 40px) rotate(360deg); }
+    }
+    
+    .glow-orb {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0,255,255,0.08), transparent);
+      border-radius: 50%;
+      animation: orbFloat 25s ease-in-out infinite;
+    }
+    .glow-orb:nth-child(2) {
+      width: 500px;
+      height: 500px;
+      top: 50%;
+      left: 30%;
+      animation-delay: -10s;
+      background: radial-gradient(circle, rgba(0,200,255,0.05), transparent);
+    }
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      50% { transform: translate(-50px, -30px) scale(1.1); opacity: 0.6; }
+    }
+    
+    .digital-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .digital-particle {
+      position: absolute;
+      background: rgba(0,255,255,0.3);
+      border-radius: 50%;
+      animation: floatParticle 22s linear infinite;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) translateX(40px); opacity: 0; }
+    }
+    
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; width: 100%; position: relative; z-index: 2; }
+    
+    /* Navbar */
+    .navbar {
+      background: rgba(5,15,25,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,255,255,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+        .logo-area { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .logo-placeholder {
+  width: 75px;
+  height: 75px;
+  background: linear-gradient(135deg, rgba(0,255,255,0.2), rgba(0,170,170,0.1));
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1.5px solid rgba(0,255,255,0.4);
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.logo-placeholder:hover {
+  transform: scale(1.05);
+  border-color: #0ff;
+  box-shadow: 0 0 20px rgba(0,255,255,0.4);
+}
+.logo-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      padding: 8px;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background: #0ff;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      transition: all 0.3s ease;
+    }
+    .nav-links li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #cbd5e6;
+      transition: 0.25s;
+      font-size: 0.9rem;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .nav-links li a:hover, .nav-links li a.active { color: #0ff; border-bottom-color: #0ff; text-shadow: 0 0 5px rgba(0,255,255,0.5); }
+    
+    .btn-primary {
+      background: linear-gradient(105deg, #0ff0c0, #0aa);
+      color: #010b14;
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-weight: 700;
+      display: inline-block;
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(0,255,255,0.3);
+      transition: 0.25s;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 24px rgba(0,255,255,0.6); }
+    
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff, #6ee7e7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .page-hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    .page-hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(145deg, #fff, #0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 16px;
+    }
+    .page-hero p {
+      font-size: 1.1rem;
+      color: #a0b3d9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 28px;
+      margin: 48px 0;
+    }
+    .industry-card {
+      background: rgba(8,18,28,0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 28px;
+      transition: all 0.3s;
+      border: 1px solid rgba(0,255,255,0.15);
+    }
+    .industry-card:hover {
+      transform: translateY(-6px);
+      border-color: #0ff;
+      box-shadow: 0 20px 35px -8px rgba(0,255,255,0.2);
+    }
+    .industry-icon {
+      font-size: 2.5rem;
+      color: #0ff;
+      margin-bottom: 18px;
+    }
+    .industry-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+    }
+    .use-cases {
+      margin: 18px 0;
+      list-style: none;
+    }
+    .use-cases li {
+      margin: 8px 0;
+      padding-left: 16px;
+      border-left: 2px solid #0ff;
+      font-size: 0.85rem;
+      color: #cbd5e6;
+    }
+    .example-query {
+      background: rgba(0,255,255,0.05);
+      padding: 10px 12px;
+      border-radius: 14px;
+      margin-top: 14px;
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #0ff;
+    }
+    
+    footer {
+      background: #02080f;
+      border-top: 1px solid rgba(0,255,255,0.2);
+      padding: 50px 0 25px;
+      margin-top: 60px;
+    }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+    .footer-col h4 { color: #0ff; font-size: 1rem; margin-bottom: 18px; }
+    .footer-col p, .footer-col a { color: #8ba0c0; text-decoration: none; line-height: 1.8; font-size: 0.85rem; display: block; margin-bottom: 8px; }
+    .footer-col a:hover { color: #0ff; transform: translateX(4px); display: inline-block; }
+    .social-icons { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+    .social-icons a { font-size: 1.3rem; color: #8ba0c0; transition: 0.2s; }
+    .social-icons a:hover { color: #0ff; transform: translateY(-3px); }
+    .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(0,255,255,0.1); font-size: 0.7rem; color: #5a6e8a; }
+    
+    @media (max-width: 900px) {
+      .container { padding: 0 20px; }
+      .page-hero h1 { font-size: 2.5rem; }
+      .section-title { font-size: 1.8rem; }
+      .nav-links { gap: 20px; }
+      .nav-links li a { font-size: 0.8rem; white-space: normal; }
+    }
+    
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 16px;
+        background: rgba(5,15,25,0.98);
+        border-top: 1px solid rgba(0,255,255,0.2);
+      }
+      .nav-links.active { display: flex; }
+      .nav-container { flex-direction: row; flex-wrap: wrap; }
+      .logo-area { flex: 1; }
+      .industry-grid { grid-template-columns: 1fr; }
+    }
+    
+    @media (max-width: 480px) {
+      .page-hero h1 { font-size: 1.8rem; }
+      .section-title { font-size: 1.5rem; }
+      .logo h1 { font-size: 1.3rem; }
+      .logo span { font-size: 0.55rem; }
+      .logo-placeholder { width: 35px; height: 35px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="cinematic-bg"></div>
+<div class="bg-animation">
+  <div class="hexagon-grid"></div>
+  <div class="glow-orb"></div>
+  <div class="glow-orb"></div>
+</div>
+<div class="digital-particles" id="digitalParticles"></div>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo-area">
+      <div class="logo-placeholder">
+        <img src="Untitled design (3).jpg" alt="Triveni AI Logo">
+      </div>
+      <div class="logo">
+        <h1>TRIVENI AI</h1>
+        <span>⚡ INTELLIGENCE · DATA · AUTOMATION</span>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="ai-agents.html">AI AGENTS</a></li>
+      <li><a href="solutions.html" class="active">SOLUTIONS</a></li>
+      <li><a href="pricing.html">PRICING</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="page-hero">
+      <h1>Industry Solutions</h1>
+      <p>AI agents tailored for your specific industry challenges and workflows.</p>
+    </div>
+
+    <div class="industry-grid">
+      <!-- Banking & Finance -->
+      <div class="industry-card">
+        <div class="industry-icon"><i class="fas fa-university"></i></div>
+        <h2>Banking & Finance</h2>
+        <p>Automate compliance, fraud detection, and customer service with AI agents that understand financial data.</p>
+        <ul class="use-cases">
+          <li>Fraud detection & suspicious transaction monitoring</li>
+          <li>Automated compliance reporting</li>
+          <li>Customer query resolution</li>
+          <li>Loan application processing</li>
+        </ul>
+        <div class="example-query">💬 "Show me all suspicious transactions exceeding PKR 1M this week"</div>
+      </div>
+
+      <!-- Healthcare -->
+      <div class="industry-card">
+        <div class="industry-icon"><i class="fas fa-notes-medical"></i></div>
+        <h2>Healthcare</h2>
+        <p>Streamline patient data access, insurance verification, and clinical workflows.</p>
+        <ul class="use-cases">
+          <li>Patient history summarization</li>
+          <li>Insurance verification automation</li>
+          <li>Appointment scheduling</li>
+          <li>Medical record retrieval</li>
+        </ul>
+        <div class="example-query">💬 "Verify insurance coverage for incoming patient and summarize their history"</div>
+      </div>
+
+      <!-- Education -->
+      <div class="industry-card">
+        <div class="industry-icon"><i class="fas fa-graduation-cap"></i></div>
+        <h2>Education</h2>
+        <p>Reduce administrative burden and improve student services with AI-powered automation.</p>
+        <ul class="use-cases">
+          <li>Student query resolution</li>
+          <li>Fee and GPA tracking</li>
+          <li>Department promotion automation</li>
+          <li>Course recommendation</li>
+        </ul>
+        <div class="example-query">💬 "Identify students with GPA below 2.5 who also have outstanding fee dues"</div>
+      </div>
+
+      <!-- Retail & E-commerce -->
+      <div class="industry-card">
+        <div class="industry-icon"><i class="fas fa-chart-line"></i></div>
+        <h2>Retail & E-commerce</h2>
+        <p>Optimize inventory, personalize customer experience, and automate operations.</p>
+        <ul class="use-cases">
+          <li>Inventory management & reordering</li>
+          <li>Sales analytics & forecasting</li>
+          <li>Customer support automation</li>
+          <li>Product recommendation</li>
+        </ul>
+        <div class="example-query">💬 "Which inventory items are low and need reordering based on last month's velocity?"</div>
+      </div>
+
+      <!-- Logistics & Supply Chain -->
+      <div class="industry-card">
+        <div class="industry-icon"><i class="fas fa-truck"></i></div>
+        <h2>Logistics & Supply Chain</h2>
+        <p>Track shipments, optimize routes, and automate documentation.</p>
+        <ul class="use-cases">
+          <li>Real-time shipment tracking</li>
+          <li>Route optimization</li>
+          <li>Automated documentation</li>
+          <li>Delivery status updates</li>
+        </ul>
+        <div class="example-query">💬 "Show all delayed shipments from last 48 hours with reasons"</div>
+      </div>
+
+      <!-- Government & Public Sector -->
+      <div class="industry-card">
+        <div class="industry-icon"><i class="fas fa-landmark"></i></div>
+        <h2>Government & Public Sector</h2>
+        <p>Digitize citizen services, automate document processing, and improve transparency.</p>
+        <ul class="use-cases">
+          <li>Citizen query resolution</li>
+          <li>Document verification</li>
+          <li>Application processing</li>
+          <li>Public record retrieval</li>
+        </ul>
+        <div class="example-query">💬 "Check status of application #APP-2024-12345"</div>
+      </div>
+
+      <!-- Manufacturing -->
+      <div class="industry-card">
+        <div class="industry-icon"><i class="fas fa-industry"></i></div>
+        <h2>Manufacturing</h2>
+        <p>Optimize production schedules, predict maintenance needs, and reduce downtime.</p>
+        <ul class="use-cases">
+          <li>Predictive maintenance alerts</li>
+          <li>Production schedule optimization</li>
+          <li>Quality control monitoring</li>
+          <li>Supply chain coordination</li>
+        </ul>
+        <div class="example-query">💬 "Which machines are due for maintenance this week based on usage data?"</div>
+      </div>
+
+      <!-- Telecom -->
+      <div class="industry-card">
+        <div class="industry-icon"><i class="fas fa-tower-cell"></i></div>
+        <h2>Telecom</h2>
+        <p>Automate customer support, network monitoring, and churn prediction.</p>
+        <ul class="use-cases">
+          <li>Customer support automation</li>
+          <li>Network performance monitoring</li>
+          <li>Churn prediction & retention</li>
+          <li>Billing query resolution</li>
+        </ul>
+        <div class="example-query">💬 "Show customers with high churn risk in Karachi region"</div>
+      </div>
+
+      <!-- Real Estate -->
+      <div class="industry-card">
+        <div class="industry-icon"><i class="fas fa-building"></i></div>
+        <h2>Real Estate</h2>
+        <p>Automate property matching, document processing, and client communication.</p>
+        <ul class="use-cases">
+          <li>Property recommendation engine</li>
+          <li>Document verification</li>
+          <li>Lead qualification</li>
+          <li>Client follow-up automation</li>
+        </ul>
+        <div class="example-query">💬 "Find properties in DHA with 3 bedrooms within PKR 2-3 crore range"</div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 50px 0;">
+      <h3 style="font-size: 1.4rem; margin-bottom: 20px;">Don't see your industry?</h3>
+      <a href="contact.html" class="btn-primary"><i class="fas fa-comment"></i> Let's Build a Custom Solution</a>
+      <p style="margin-top: 20px; font-size: 0.8rem; color: #5a7a9a;">Every industry has unique data challenges. We build agents for your specific needs.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h4>TRIVENI AI</h4><p>Intelligence That Works Where Your Data Lives</p></div>
+      <div class="footer-col"><h4>Quick Links</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="ai-agents.html">AI Agents</a><a href="solutions.html">Solutions</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-envelope"></i> Muhammadshaiq68@gmail.com</p><p><i class="fas fa-phone-alt"></i> (+92) 319 8501420</p><p><i class="fas fa-map-marker-alt"></i> Multan, Pakistan</p></div>
+      <div class="footer-col"><h4>Follow Us</h4><div class="social-icons">
+        <a href="https://www.linkedin.com/in/muhammad-shaiq-b32873383" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/muhammadshaiq-sys" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://wa.me/message/IWGFCAZ7BYH5G1" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/shaiq_30?utm_source=qr&igsh=emFzb3Y0N3d4ZDZt" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div><p style="margin-top:14px;">triveni.ai</p></div>
+    </div>
+    <div class="footer-bottom">© 2026 Triveni AI — Built with mathematical honesty & Pakistan's export vision.</div>
+  </div>
+</footer>
+
+<script>
+  // Floating particles
+  const particlesContainer = document.getElementById('digitalParticles');
+  for(let i = 0; i < 70; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('digital-particle');
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = 12 + Math.random() * 18 + 's';
+    particle.style.width = 1 + Math.random() * 4 + 'px';
+    particle.style.height = particle.style.width;
+    particlesContainer.appendChild(particle);
+  }
+  
+  // Hamburger Menu Toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+  
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+    });
+  });
+</script>
+</body>
+</html>
